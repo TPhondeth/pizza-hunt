@@ -1,16 +1,23 @@
 const router = require('express').Router();
-const path = require('path');
+const {
+  getAllPizza,
+  getPizzaById,
+  createPizza,
+  updatePizza,
+  deletePizza
+} = require('../../controllers/pizza-controller');
 
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/pizza-list.html'));
-});
+// /api/pizzas
+router
+  .route('/')
+  .get(getAllPizza)
+  .post(createPizza);
 
-router.get('/add-pizza', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/add-pizza.html'));
-});
-
-router.get('/pizza', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/pizza.html'));
-});
+// /api/pizzas/:id
+router
+  .route('/:id')
+  .get(getPizzaById)
+  .put(updatePizza)
+  .delete(deletePizza);
 
 module.exports = router;
