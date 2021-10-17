@@ -57,7 +57,8 @@ const pizzaController = {
         Pizza.findOneAndUpdate({
                 _id: params.id
             }, body, {
-                new: true
+                new: true,
+                runValidators: true
             })
             .then(dbPizzaData => {
                 if (!dbPizzaData) {
@@ -68,8 +69,9 @@ const pizzaController = {
                 }
                 res.json(dbPizzaData);
             })
-            .catch(err => res.json(err));
+            .catch(err => res.status(400).json(err));
     },
+
 
     // delete pizza
     deletePizza({
